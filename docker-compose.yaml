@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    app:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+            - "8080:80"
+        depends_on:
+            - db
+        networks:
+            - my-network
+    db:
+        build:
+            context: Compose.Data
+            dockerfile: Dockerfile
+        ports: 
+            - "11433:1433"
+        networks:
+            - my-network
+
+networks:
+    my-network:
+        driver: bridge
